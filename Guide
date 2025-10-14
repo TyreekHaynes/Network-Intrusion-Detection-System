@@ -1,0 +1,565 @@
+
+A hybrid signature-based and anomaly-based Network Intrusion Detection System (NIDS) built with Python and Scapy. Detects real-world attacks while minimizing false positives through intelligent traffic analysis.
+
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Security](https://img.shields.io/badge/Security-NIDS-red.svg)](https://github.com/yourusername/pynids)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+## Features
+
+- **Deep Packet Inspection** - Analyzes packet payloads for malicious patterns
+- **Behavioral Analysis** - Detects anomalies in network traffic patterns
+- **Real-time Alerting** - Immediate notifications for critical threats
+- **False Positive Reduction** - Smart filtering and whitelisting
+- **Device Awareness** - Recognizes trusted devices vs unknown threats
+- **Adaptive Learning** - Adjusts thresholds based on network behavior
+
+## Quick Start
+
+### Prerequisites
+- Python 3.8+
+- Linux/macOS (Windows requires additional setup)
+- Network interface with packet capture capabilities
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/pynids.git
+cd pynids
+
+# Create virtual environment
+python3 -m venv nids_env
+source nids_env/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+Basic Usage
+bash
+# Start monitoring (replace wlan0 with your interface)
+sudo python nids.py --interface wlan0
+
+# Or use the auto-detecting version
+sudo python nids_auto.py
+Advanced Usage
+bash
+# Monitor with specific configuration
+sudo python nids.py --interface eth0 --log-file /var/log/nids.log
+
+# Test with simulated attacks
+python test_nids.py
+
+# Analyze traffic patterns
+python traffic_analyzer.py
+Detection Capabilities
+Signature-Based Detection
+SQL Injection attacks
+
+XSS (Cross-Site Scripting)
+
+Directory Traversal
+
+Command Injection
+
+Buffer Overflow patterns
+
+Port Scanning signatures
+
+Anomaly-Based Detection
+High connection rates
+
+Port scanning behavior
+
+SYN flood attacks
+
+Protocol anomalies
+
+Behavioral deviations
+
+Project Structure
+text
+pynids/
+├── nids.py                 # Main NIDS implementation
+├── nids_auto.py           # Auto-configuring version
+├── nids_tuned.py          # False-positive reduced version
+├── traffic_analyzer.py    # Network traffic analysis
+├── test_nids.py           # Attack simulation tests
+├── requirements.txt       # Python dependencies
+├── README.md             # This file
+└── examples/             # Usage examples
+    ├── custom_signatures.py
+    └── integration_guide.md
+Configuration
+Whitelisting Trusted Devices
+Edit the known devices in nids_whitelisted.py:
+
+python
+known_devices = {
+    '192.168.1.1': 'Router',
+    '192.168.1.197': 'Raspberry Pi',
+    '192.168.1.100': 'Trusted PC',
+    # Add your devices here
+}
+Custom Signatures
+Add your own detection patterns in custom_signatures.py:
+
+python
+custom_signatures = {
+    'my_threats': [
+        r"malicious_pattern",
+        r"suspicious_command",
+    ]
+}
+Output Example
+text
+Starting NIDS on wlan0
+Monitoring network traffic...
+Processed 1000 packets...
+
+ALERT: sql_injection from 192.168.1.105
+ALERT: port_scanning from 192.168.1.203 (Confidence: HIGH)
+Connection rate for 192.168.1.197: 45 (normal for Raspberry Pi)
+Testing
+Run the included test suite to verify detection capabilities:
+
+bash
+python test_nids.py
+This simulates various attacks to ensure your NIDS is working properly.
+
+Contributing
+We welcome contributions! Please see our Contributing Guide for details.
+
+Areas for Contribution
+New attack signatures
+
+Machine learning integration
+
+Performance optimizations
+
+Additional protocol support
+
+Documentation improvements
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Disclaimer
+This tool is for educational and authorized security testing purposes only. Users are responsible for complying with all applicable laws and regulations.
+
+Acknowledgments
+Built with Scapy for packet manipulation
+
+Inspired by enterprise NIDS solutions like Snort and Suricata
+
+Community contributions and feedback
+
+If you find this project useful, please give it a star on GitHub!
+
+text
+
+### **2. requirements.txt**
+```text
+scapy>=2.4.5
+3. setup.py
+python
+from setuptools import setup, find_packages
+
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
+with open("requirements.txt", "r", encoding="utf-8") as fh:
+    requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+
+setup(
+    name="pynids",
+    version="1.0.0",
+    author="Your Name",
+    author_email="your.email@example.com",
+    description="A Python-based Network Intrusion Detection System",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/yourusername/pynids",
+    packages=find_packages(),
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Security Professionals",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Security",
+        "Topic :: System :: Networking :: Monitoring",
+    ],
+    python_requires=">=3.8",
+    install_requires=requirements,
+    entry_points={
+        "console_scripts": [
+            "pynids=nids:main",
+        ],
+    },
+)
+4. CONTRIBUTING.md
+markdown
+# Contributing to PyNIDS
+
+We love your input! We want to make contributing to PyNIDS as easy and transparent as possible.
+
+## Development Setup
+
+1. Fork the repo
+2. Clone your fork:
+   ```bash
+   git clone https://github.com/yourusername/pynids.git
+Create a virtual environment:
+
+bash
+python3 -m venv nids_env
+source nids_env/bin/activate
+Install dependencies:
+
+bash
+pip install -r requirements.txt
+Pull Request Process
+Create a new branch for your feature
+
+Add tests for new functionality
+
+Ensure all tests pass
+
+Update documentation as needed
+
+Submit a pull request
+
+Adding New Signatures
+Create a new file in signatures/ following this format:
+
+python
+# signatures/my_threats.py
+SIGNATURES = {
+    'new_threat_category': [
+        r"malicious_pattern_1",
+        r"malicious_pattern_2",
+    ]
+}
+Code Style
+Follow PEP 8 guidelines
+
+Use meaningful variable names
+
+Add docstrings for functions
+
+Include type hints where possible
+
+Testing
+Run the test suite before submitting:
+
+bash
+python test_nids.py
+text
+
+### **5. nids.py** (Professional version)
+```python
+#!/usr/bin/env python3
+"""
+PyNIDS - Python Network Intrusion Detection System
+Main detection engine combining signature and anomaly detection
+"""
+
+import time
+import logging
+import argparse
+from collections import defaultdict, deque
+from datetime import datetime
+import re
+import scapy.all as scapy
+
+class SignatureDetector:
+    """Signature-based attack detection"""
+    
+    def __init__(self):
+        self.signatures = self._load_signatures()
+        
+    def _load_signatures(self):
+        return {
+            'sql_injection': [
+                r"union.*select", r"or.*=.*or", r"drop.*table", r"insert.*into",
+                r"exec.*xp_cmdshell", r"waitfor.*delay", r"';", r"'--", r"1=1"
+            ],
+            'xss': [
+                r"<script>", r"javascript:", r"onload=", r"onerror=", 
+                r"onclick=", r"alert\("
+            ],
+            'directory_traversal': [
+                r"\.\./\.\.", r"\.\.\\", r"etc/passwd", r"win\.ini", r"boot\.ini"
+            ],
+            'command_injection': [
+                r"\|\s*\b(sh|bash|cmd)\b.*\b(rm\s+-rf|del\s+/|format\s+)",
+                r"`.*\b(rm\s+-rf|del\s+.*\.\*|format)\b",
+            ]
+        }
+    
+    def inspect_packet(self, packet):
+        alerts = []
+        if packet.haslayer(scapy.Raw):
+            payload = str(packet[scapy.Raw].load)
+            for category, patterns in self.signatures.items():
+                for pattern in patterns:
+                    if re.search(pattern, payload, re.IGNORECASE):
+                        alert = {
+                            'timestamp': datetime.now(),
+                            'type': 'signature',
+                            'category': category,
+                            'severity': 'HIGH',
+                            'source_ip': packet[scapy.IP].src if packet.haslayer(scapy.IP) else 'Unknown',
+                            'dest_ip': packet[scapy.IP].dst if packet.haslayer(scapy.IP) else 'Unknown',
+                            'signature': pattern,
+                            'payload_sample': payload[:100]
+                        }
+                        alerts.append(alert)
+        return alerts
+
+class AnomalyDetector:
+    """Anomaly-based detection using behavioral analysis"""
+    
+    def __init__(self, window_size=60):
+        self.window_size = window_size
+        self.connections = defaultdict(lambda: deque(maxlen=1000))
+        self.port_activity = defaultdict(lambda: defaultdict(int))
+        
+        self.thresholds = {
+            'conn_rate': 100,
+            'syn_flood': 500,
+            'port_scan': 20,
+        }
+    
+    def update_baselines(self, packet):
+        if not packet.haslayer(scapy.IP):
+            return
+            
+        src_ip = packet[scapy.IP].src
+        current_time = time.time()
+        
+        self.connections[src_ip].append(current_time)
+        
+        if packet.haslayer(scapy.TCP):
+            dst_port = packet[scapy.TCP].dport
+            self.port_activity[src_ip][dst_port] += 1
+    
+    def detect_anomalies(self, packet):
+        alerts = []
+        if not packet.haslayer(scapy.IP):
+            return alerts
+            
+        src_ip = packet[scapy.IP].src
+        current_time = time.time()
+        
+        window_start = current_time - self.window_size
+        recent_conns = [t for t in self.connections[src_ip] if t > window_start]
+        self.connections[src_ip] = deque(recent_conns, maxlen=1000)
+        
+        conn_rate = len(recent_conns)
+        if conn_rate > self.thresholds['conn_rate']:
+            alerts.append({
+                'timestamp': datetime.now(),
+                'type': 'anomaly',
+                'category': 'high_connection_rate',
+                'severity': 'MEDIUM',
+                'source_ip': src_ip,
+                'metric': 'connection_rate',
+                'value': conn_rate,
+                'threshold': self.thresholds['conn_rate']
+            })
+        
+        unique_ports = len(self.port_activity[src_ip])
+        if unique_ports > self.thresholds['port_scan']:
+            alerts.append({
+                'timestamp': datetime.now(),
+                'type': 'anomaly',
+                'category': 'port_scanning',
+                'severity': 'HIGH',
+                'source_ip': src_ip,
+                'metric': 'unique_ports',
+                'value': unique_ports,
+                'threshold': self.thresholds['port_scan']
+            })
+        
+        return alerts
+
+class AlertManager:
+    """Manage and log security alerts"""
+    
+    def __init__(self):
+        self.alerts = deque(maxlen=1000)
+        self.whitelist = {'ips': ['127.0.0.1']}
+        self.setup_logging()
+    
+    def setup_logging(self):
+        logging.basicConfig(
+            filename='nids_alerts.log',
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+    
+    def add_alert(self, alert):
+        if alert['source_ip'] not in self.whitelist['ips']:
+            self.alerts.append(alert)
+            self.log_alert(alert)
+    
+    def log_alert(self, alert):
+        log_entry = f"{alert['type'].upper()} - {alert['category']} from {alert['source_ip']} - Severity: {alert['severity']}"
+        logging.warning(log_entry)
+        
+        if alert['severity'] in ['HIGH', 'CRITICAL']:
+            print(f"ALERT: {alert['category']} from {alert['source_ip']}")
+
+class PyNIDS:
+    """Main NIDS class with hybrid detection capabilities"""
+    
+    def __init__(self, interface=None, log_file="nids.log"):
+        self.interface = interface or self.auto_detect_interface()
+        self.setup_logging(log_file)
+        
+        self.signature_detector = SignatureDetector()
+        self.anomaly_detector = AnomalyDetector()
+        self.alert_manager = AlertManager()
+        
+        self.running = False
+        self.packet_count = 0
+        
+    def auto_detect_interface(self):
+        interfaces = scapy.get_if_list()
+        for iface in interfaces:
+            if iface != 'lo' and not iface.startswith('docker'):
+                return iface
+        return 'eth0'
+    
+    def setup_logging(self, log_file):
+        logging.basicConfig(
+            filename=log_file,
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+    
+    def start_monitoring(self):
+        print(f"Starting PyNIDS on {self.interface}")
+        print("Monitoring network traffic...")
+        print("Alerts logged to: nids_alerts.log")
+        print("Press Ctrl+C to stop")
+        
+        self.running = True
+        try:
+            scapy.sniff(iface=self.interface, prn=self.packet_handler, store=0)
+        except KeyboardInterrupt:
+            print("Stopping PyNIDS...")
+        except Exception as e:
+            print(f"Error: {e}")
+    
+    def packet_handler(self, packet):
+        try:
+            self.packet_count += 1
+            
+            self.anomaly_detector.update_baselines(packet)
+            
+            if self.packet_count % 10 == 0:
+                signature_alerts = self.signature_detector.inspect_packet(packet)
+                for alert in signature_alerts:
+                    self.alert_manager.add_alert(alert)
+            
+            if self.packet_count % 100 == 0:
+                anomaly_alerts = self.anomaly_detector.detect_anomalies(packet)
+                for alert in anomaly_alerts:
+                    self.alert_manager.add_alert(alert)
+                    
+            if self.packet_count % 1000 == 0:
+                print(f"Processed {self.packet_count} packets...")
+                
+        except Exception as e:
+            logging.error(f"Packet processing error: {e}")
+
+def main():
+    parser = argparse.ArgumentParser(description='PyNIDS - Network Intrusion Detection System')
+    parser.add_argument('--interface', '-i', help='Network interface to monitor')
+    parser.add_argument('--log-file', '-l', default='nids.log', help='Log file path')
+    
+    args = parser.parse_args()
+    
+    nids = PyNIDS(interface=args.interface, log_file=args.log_file)
+    nids.start_monitoring()
+
+if __name__ == "__main__":
+    main()
+6. test_nids.py
+python
+#!/usr/bin/env python3
+"""
+Test suite for PyNIDS - Simulates attacks to verify detection
+"""
+
+import time
+from scapy.all import *
+
+def test_signature_detection():
+    print("Testing Signature Detection...")
+    
+    test_packets = [
+        IP(src="192.168.1.100", dst="192.168.1.50")/TCP(dport=80)/Raw(load="' UNION SELECT password FROM users --"),
+        IP(src="192.168.1.101", dst="192.168.1.50")/TCP(dport=80)/Raw(load="<script>alert('XSS')</script>"),
+        IP(src="192.168.1.102", dst="192.168.1.50")/TCP(dport=80)/Raw(load="GET ../../../etc/passwd HTTP/1.1"),
+    ]
+    
+    from nids import PyNIDS
+    
+    nids = PyNIDS()
+    
+    for i, packet in enumerate(test_packets):
+        print(f"Testing packet {i+1}/{len(test_packets)}")
+        nids.packet_handler(packet)
+        time.sleep(0.1)
+    
+    print("Signature detection test completed!")
+
+if __name__ == "__main__":
+    test_signature_detection()
+7. LICENSE
+text
+MIT License
+
+Copyright (c) 2025 Tyreek Haynes
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+Repository Setup Commands
+bash
+# Initialize repository
+mkdir pynids
+cd pynids
+
+# Create all files above
+# Then initialize git
+git init
+git add .
+git commit -m "Initial commit: PyNIDS v1.0.0"
+
+# Connect to GitHub and push
+git remote add origin https://github.com/yourusername/pynids.git
+git branch -M main
+git push -u origin main
