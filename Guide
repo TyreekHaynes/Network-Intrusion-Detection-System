@@ -7,7 +7,6 @@
 
 ### Installation
 
-```bash
 # Clone the repository
 git clone https://github.com/yourusername/pynids.git
 cd pynids
@@ -19,14 +18,14 @@ source nids_env/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 Basic Usage
-bash
+
 # Start monitoring (replace wlan0 with your interface)
 sudo python nids.py --interface wlan0
 
 # Or use the auto-detecting version
 sudo python nids_auto.py
 Advanced Usage
-bash
+
 # Monitor with specific configuration
 sudo python nids.py --interface eth0 --log-file /var/log/nids.log
 
@@ -106,7 +105,7 @@ Connection rate for 192.168.1.197: 45 (normal for Raspberry Pi)
 Testing
 Run the included test suite to verify detection capabilities:
 
-bash
+
 python test_nids.py
 This simulates various attacks to ensure your NIDS is working properly.
 
@@ -139,10 +138,10 @@ Community contributions and feedback
 
 If you find this project useful, please give it a star on GitHub!
 
-text
+
 
 ### **2. requirements.txt**
-```text
+
 scapy>=2.4.5
 3. setup.py
 python
@@ -185,7 +184,7 @@ setup(
     },
 )
 4. CONTRIBUTING.md
-markdown
+
 # Contributing to PyNIDS
 
 We love your input! We want to make contributing to PyNIDS as easy and transparent as possible.
@@ -198,12 +197,12 @@ We love your input! We want to make contributing to PyNIDS as easy and transpare
    git clone https://github.com/yourusername/pynids.git
 Create a virtual environment:
 
-bash
+
 python3 -m venv nids_env
 source nids_env/bin/activate
 Install dependencies:
 
-bash
+
 pip install -r requirements.txt
 Pull Request Process
 Create a new branch for your feature
@@ -239,9 +238,9 @@ Include type hints where possible
 Testing
 Run the test suite before submitting:
 
-bash
+
 python test_nids.py
-text
+
 
 ### **5. nids.py** (Professional version)
 ```python
@@ -509,8 +508,6 @@ def test_signature_detection():
 if __name__ == "__main__":
     test_signature_detection()
 7. LICENSE
-text
-MIT License
 
 Copyright (c) 2025 Tyreek Haynes
 
@@ -532,7 +529,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 Repository Setup Commands
-bash
+
 # Initialize repository
 mkdir pynids
 cd pynids
